@@ -24,4 +24,42 @@ RSpec.describe MergeAttributes::Helper, type: :helper do
         }
       })
   end
+  
+  describe 'token_list_attributes option' do
+    it 'merges listed attribute as a token list' do
+      expect(helper.merge_attributes([{
+        class: 'class-1'
+      }, {
+        class: ['class-2 class-3']
+      }, {
+        class: {
+          'class-4': true
+        }
+      }], token_list_attributes: [:class])).to eq({
+        class: 'class-1 class-2 class-3 class-4'
+      })
+    end
+
+    it 'support deep keys' do
+      expect(helper.merge_attributes([{
+        data: {
+          controller: 'controller-1'
+        }
+      }, {
+        data: {
+          controller: ['controller-2 controller-3']
+        }
+      }, {
+        data: {
+          controller: {
+            'controller-4': true
+          }
+        }
+      }], token_list_attributes: [[:data,:controller]])).to eq({
+        data: {
+          controller: 'controller-1 controller-2 controller-3 controller-4'
+        }
+      })
+    end
+  end
 end
