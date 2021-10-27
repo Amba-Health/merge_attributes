@@ -5,7 +5,7 @@ require "merge_attributes/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "merge_attributes"
-  spec.version       = MergeAttributes::VERSION
+  spec.version       = MergeAttributes.gem_version
   spec.authors       = ["CookiesHQ"]
   spec.email         = ["developers@cookieshq.co.uk"]
 

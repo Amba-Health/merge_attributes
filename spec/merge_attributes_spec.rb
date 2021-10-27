@@ -1,6 +1,6 @@
 RSpec.describe MergeAttributes do
   it "has a version number" do
-    expect(MergeAttributes::VERSION).not_to be nil
+    expect(MergeAttributes.gem_version).to be_a Gem::Version
   end
 
   it "does something useful" do
