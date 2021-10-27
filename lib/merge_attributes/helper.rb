@@ -3,10 +3,13 @@ require "active_support/core_ext/hash/keys"
 
 module MergeAttributes
   module Helper
+
+    DEFAULT_TOKEN_LIST_ATTRIBUTES = [[:class], [:data, :controller], [:data,:action]].freeze
+
     def merge_attributes(
       attributes, 
       *extra_attributes_list, 
-      token_list_attributes: [[:class], [:data, :controller], [:data,:action]],
+      token_list_attributes: DEFAULT_TOKEN_LIST_ATTRIBUTES,
       **extra_attributes
     )
       attributes_to_merge = extra_attributes_list.unshift(attributes)
@@ -54,7 +57,6 @@ module MergeAttributes
     # Opposite of `Hash#dig` for deep setting hashes values
     # https://bugs.ruby-lang.org/issues/13179
     def bury(hash, *where, value)
-        pp "burying", hash, where, value
         me=hash
         where[0..-2].each{|key|
           me=me[key] || {} # Create a new hash if the key is not found
