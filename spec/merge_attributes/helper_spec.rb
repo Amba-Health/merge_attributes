@@ -16,6 +16,35 @@ RSpec.describe MergeAttributes::Helper, type: :helper do
         }
       }
     ])).to eq({
+      id: "an-id",
+      rel: 'noopener',
+      data: {
+        remote: true,
+        url: 'http://example.com'
+      }
+    })
+  end
+
+  describe 'arguments' do
+
+    it 'ignores nil values' do
+      expect(helper.merge_attributes([
+        nil,
+        {
+          id: "an-id", 
+          data: {
+            url: 'http://example.com'
+          }
+        },
+        nil,
+        {
+          rel: 'noopener',
+          data: {
+            remote: true
+          }
+        },
+        nil
+      ])).to eq({
         id: "an-id",
         rel: 'noopener',
         data: {
@@ -23,8 +52,64 @@ RSpec.describe MergeAttributes::Helper, type: :helper do
           url: 'http://example.com'
         }
       })
+    end
+
+    it 'accepts hashes as arguments' do
+      expect(helper.merge_attributes(
+        {
+          id: "an-id", 
+          data: {
+            url: 'http://example.com'
+          }
+        }, {
+          rel: 'noopener',
+          data: {
+            remote: true
+          }
+        }
+      )).to eq({
+        id: "an-id",
+        rel: 'noopener',
+        data: {
+          remote: true,
+          url: 'http://example.com'
+        }
+      })
+    end
+
+    it 'flattens any arrays passed' do
+      expect(helper.merge_attributes(
+        [
+          [{
+            id: "an-id", 
+          }],
+          {
+            data: {
+              url: 'http://example.com'
+            }
+          }
+        ], 
+        [
+          {
+            rel: 'noopener',
+          },
+          [{
+            data: {
+              remote: true
+            }
+          }]
+        ]
+      )).to eq({
+        id: "an-id",
+        rel: 'noopener',
+        data: {
+          remote: true,
+          url: 'http://example.com'
+        }
+      })
+    end
   end
-  
+
   describe 'token_list_attributes option' do
     it 'merges listed attribute as a token list' do
       expect(helper.merge_attributes([{
