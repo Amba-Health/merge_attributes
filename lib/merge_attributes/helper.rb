@@ -2,14 +2,14 @@ require "active_support"
 require "active_support/core_ext/hash/keys"
 
 module MergeAttributes
-  module Helper
 
-    DEFAULT_TOKEN_LIST_ATTRIBUTES = [[:class], [:data, :controller], [:data,:action]].freeze
+  DEFAULT_TOKEN_LIST_ATTRIBUTES = [[:class], [:data, :controller], [:data,:action]].freeze
+  module Helper
 
     def merge_attributes(
       attributes, 
       *extra_attributes_list, 
-      token_list_attributes: DEFAULT_TOKEN_LIST_ATTRIBUTES,
+      token_list_attributes: MergeAttributes::DEFAULT_TOKEN_LIST_ATTRIBUTES,
       **extra_attributes
     )
       attributes_to_merge = extra_attributes_list.unshift(attributes)
