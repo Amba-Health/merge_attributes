@@ -34,7 +34,7 @@ module MergeAttributes
         token_list_attributes: token_list_attributes)
     end
 
-    private
+    protected
 
     def execute_attribute_merge(attributes_list, token_list_attributes: [])
       # Convert all keys to symbol to ensure we
