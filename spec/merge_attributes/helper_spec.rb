@@ -146,5 +146,50 @@ RSpec.describe MergeAttributes::Helper, type: :helper do
         }
       })
     end
+
+    it 'support string lists' do
+      expect(helper.merge_attributes([{
+        data: {
+          controller: 'controller-1'
+        }
+      }, {
+        data: {
+          controller: ['controller-2 controller-3']
+        }
+      }, {
+        data: {
+          controller: {
+            'controller-4': true
+          }
+        }
+      }], token_list_attributes: [['data','controller']])).to eq({
+        data: {
+          controller: 'controller-1 controller-2 controller-3 controller-4'
+        }
+      })
+    end
+
+    it 'supports dash separated strings' do
+      expect(helper.merge_attributes([{
+        data: {
+          controller: 'controller-1'
+        }
+      }, {
+        data: {
+          controller: ['controller-2 controller-3']
+        }
+      }, {
+        data: {
+          controller: {
+            'controller-4': true
+          }
+        }
+      }], token_list_attributes: ['data-controller'])).to eq({
+        data: {
+          controller: 'controller-1 controller-2 controller-3 controller-4'
+        }
+      })
+    end
+    it 'solves conflicts between dash and data hash'
   end
 end

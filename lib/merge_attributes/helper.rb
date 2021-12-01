@@ -47,6 +47,15 @@ module MergeAttributes
       end 
 
       token_list_attributes.each do |attribute_path|
+        attribute_path = case attribute_path
+        when String
+          attribute_path.split('-').map(&:to_sym)
+        when Array
+          attribute_path.map(&:to_sym)
+        else
+          attribute_path.to_s.split('-').map(&:to_sym)
+        end
+          
         value = token_list(attributes.dig(*attribute_path), *attributes_to_merge.map{|attr| attr.dig(*attribute_path)})
         bury(result, *attribute_path, value) unless value.blank?
       end
