@@ -191,4 +191,46 @@ RSpec.describe MergeAttributes::Helper, type: :helper do
       })
     end
   end
+
+  describe 'block' do
+    it 'allows pre-processing of attributes' do
+      result = helper.merge_attributes([{
+        id: 'number-1'
+      }, {
+        class: 'boom'
+      }, {
+        'aria-label': 'Hello'
+      }]) do |attributes, index|
+        {
+          **attributes,
+          "data-value-#{index}": index
+        }
+      end
+
+      expect(result).to eq({
+        id: 'number-1',
+        class: 'boom',
+        'aria-label': 'Hello',
+        'data-value-0': 0,
+        'data-value-1': 1,
+        'data-value-2': 2
+      })
+    end
+
+    it 'provides the flattened list of attributes' do
+      helper.merge_attributes(
+        {id: 'number-1'},
+        [[{class:'boom'}]],
+        'aria-label': 'Hello'
+      ) do |attributes, index, attributes_list|
+        expect(attributes_list).to eq([
+          {id: 'number-1'},
+          {class: 'boom'},
+          {'aria-label': 'Hello'}
+        ])
+        
+        attributes
+      end
+    end
+  end
 end

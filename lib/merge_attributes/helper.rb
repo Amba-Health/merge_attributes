@@ -16,13 +16,22 @@ module MergeAttributes
 
       # Ruby considers a final hash to be extra options
       # rather than an argument
-      attributes_to_merge << extra_attributes
+      unless extra_attributes.blank? # Avoids having an extra hash of attributes in the processing
+        attributes_to_merge << extra_attributes 
+      end
     
       attributes_to_merge = attributes_to_merge
-        .flatten # Handle nested arrays that may have been used for collecting series of attributes
-        .reject{|item| item.blank?} # No need to process blank values
-      
-      execute_attribute_merge(attributes_to_merge, token_list_attributes: token_list_attributes)
+        .flatten
+        
+      if block_given?
+        attributes_to_merge = attributes_to_merge.each_with_index.map do |attributes,index|
+          yield(attributes, index, attributes_to_merge)
+        end
+      end# Handle nested arrays that may have been used for collecting series of attributes
+
+      execute_attribute_merge(
+        attributes_to_merge.reject{|item| item.blank?}, # No need to process blank values
+        token_list_attributes: token_list_attributes)
     end
 
     private
