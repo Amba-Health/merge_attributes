@@ -190,6 +190,5 @@ RSpec.describe MergeAttributes::Helper, type: :helper do
         }
       })
     end
-    it 'solves conflicts between dash and data hash'
   end
 end
