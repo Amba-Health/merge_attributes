@@ -1,4 +1,4 @@
-require 'rails/railtie'
+require "rails/railtie"
 module MergeAttributes
   class Railtie < ::Rails::Railtie
     initializer "merge_attributes.action_view" do |app|
