@@ -34,12 +34,14 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.17"
+  spec.add_dependency "activesupport", ">= 6.1.0"
+
+  spec.add_development_dependency "bundler", ">= 2.0.0"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "byebug"
   spec.add_development_dependency "rspec-rails", "~>4.0.0"
-  
+
   # >= 6.1.0 so it provides the `token_list` helper
   # https://github.com/rails/rails/blob/6e2247e9760da37882429b7a72dff1dd1ea5963e/actionview/lib/action_view/helpers/tag_helper.rb#L341
   spec.add_runtime_dependency "rails", ">=6.1.0"
