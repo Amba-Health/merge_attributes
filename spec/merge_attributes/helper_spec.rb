@@ -5,7 +5,7 @@ RSpec.describe MergeAttributes::Helper, type: :helper do
   it 'deep merges attributes that are not marked as token list' do
     expect(helper.merge_attributes([
       {
-        id: "an-id", 
+        id: "an-id",
         data: {
           url: 'http://example.com'
         }
@@ -31,7 +31,7 @@ RSpec.describe MergeAttributes::Helper, type: :helper do
       expect(helper.merge_attributes([
         nil,
         {
-          id: "an-id", 
+          id: "an-id",
           data: {
             url: 'http://example.com'
           }
@@ -57,7 +57,7 @@ RSpec.describe MergeAttributes::Helper, type: :helper do
     it 'accepts hashes as arguments' do
       expect(helper.merge_attributes(
         {
-          id: "an-id", 
+          id: "an-id",
           data: {
             url: 'http://example.com'
           }
@@ -81,14 +81,14 @@ RSpec.describe MergeAttributes::Helper, type: :helper do
       expect(helper.merge_attributes(
         [
           [{
-            id: "an-id", 
+            id: "an-id",
           }],
           {
             data: {
               url: 'http://example.com'
             }
           }
-        ], 
+        ],
         [
           {
             rel: 'noopener',
@@ -106,6 +106,14 @@ RSpec.describe MergeAttributes::Helper, type: :helper do
           remote: true,
           url: 'http://example.com'
         }
+      })
+    end
+
+    it 'executes token_list when single item is passed' do
+      expect(helper.merge_attributes({
+        class: [{here: true, not_here: false}, 'there', ['or','somewhere']]
+      })).to eq({
+        class: 'here there or somewhere'
       })
     end
   end
@@ -228,7 +236,7 @@ RSpec.describe MergeAttributes::Helper, type: :helper do
           {class: 'boom'},
           {'aria-label': 'Hello'}
         ])
-        
+
         attributes
       end
     end

@@ -7,8 +7,8 @@ module MergeAttributes
   module Helper
 
     def merge_attributes(
-      attributes, 
-      *extra_attributes_list, 
+      attributes,
+      *extra_attributes_list,
       token_list_attributes: MergeAttributes::DEFAULT_TOKEN_LIST_ATTRIBUTES,
       **extra_attributes
     )
@@ -17,12 +17,12 @@ module MergeAttributes
       # Ruby considers a final hash to be extra options
       # rather than an argument
       unless extra_attributes.blank? # Avoids having an extra hash of attributes in the processing
-        attributes_to_merge << extra_attributes 
+        attributes_to_merge << extra_attributes
       end
-    
+
       attributes_to_merge = attributes_to_merge
         .flatten
-        
+
       if block_given?
         attributes_to_merge = attributes_to_merge.each_with_index.map do |attributes,index|
           yield(attributes, index, attributes_to_merge)
@@ -46,14 +46,12 @@ module MergeAttributes
 
       attributes, *attributes_to_merge = attributes_list
 
-      return attributes if attributes_list.size == 1
-
       result = attributes
 
       attributes_to_merge.each do |extra_attributes|
         # deep_merge the attributes so we handle the data Hash properly
         result = result.deep_merge extra_attributes
-      end 
+      end
 
       token_list_attributes.each do |attribute_path|
         attribute_path = case attribute_path
@@ -64,7 +62,7 @@ module MergeAttributes
         else
           attribute_path.to_s.split('-').map(&:to_sym)
         end
-          
+
         value = token_list(attributes.dig(*attribute_path), *attributes_to_merge.map{|attr| attr.dig(*attribute_path)})
         bury(result, *attribute_path, value) unless value.blank?
       end
