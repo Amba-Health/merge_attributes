@@ -5,10 +5,10 @@ module MergeAttributes
   DEFAULT_TOKEN_LIST_ATTRIBUTES = [[:class], [:data, :controller], [:data, :action]].freeze
   module Helper
     def merge_attributes(
-      attributes,
-      *extra_attributes_list,
+      attributes, # Ensures we have at least one set of attributes to work with
+      *extra_attributes_list, # Collects as many other sets as needed
       token_list_attributes: MergeAttributes::DEFAULT_TOKEN_LIST_ATTRIBUTES,
-      **extra_attributes
+      **extra_attributes # And keyword params as a final set of attributes
     )
       attributes_to_merge = extra_attributes_list.unshift(attributes)
 
