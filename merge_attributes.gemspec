@@ -5,11 +5,11 @@ require "merge_attributes/version"
 Gem::Specification.new do |spec|
   spec.name = "merge_attributes"
   spec.version = MergeAttributes.gem_version
-  spec.authors = ["CookiesHQ"]
-  spec.email = ["developers@cookieshq.co.uk"]
+  spec.authors = ["Romaric Pascal", "Amba Health & Care"]
+  spec.email = ["hello@romaricpascal.is", "developers@amba.co"]
 
   spec.summary = "Merge hashes as HTML attributes, accounting for the specifics of `class`,`data-controller`, `data-action`"
-  spec.homepage = "https://github.com/cookieshq/merge_attributes"
+  spec.homepage = "https://github.com/Amba-Health/merge_attributes"
   spec.license = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
     spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
     spec.metadata["homepage_uri"] = spec.homepage
-    spec.metadata["source_code_uri"] = "https://github.com/cookieshq/merge_attributes"
+    spec.metadata["source_code_uri"] = "https://github.com/Amba-Health/merge_attributes"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
       "public gem pushes."
