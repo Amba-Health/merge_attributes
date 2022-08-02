@@ -49,6 +49,15 @@ If you're running on an older version of Rails, your could alias [Primer ViewCom
 
 ### Installing the Gem
 
+```ruby
+# Ideally replace the `branch: "main"` with a commit reference (`ref: COMMIT_HASH`)
+# https://bundler.io/guides/git.html
+gem "merge_attributes", github: "Amba-Health/merge_attributes", branch: "main"
+```
+
+<details>
+<summary>Coming soon!</summary>
+
 Add this line to your application's Gemfile:
 
 ```ruby
@@ -62,6 +71,8 @@ And then execute:
 Or install it yourself as:
 
     gem install merge_attributes
+
+</details>
 
 ## Usage
 
